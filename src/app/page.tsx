@@ -1,4 +1,4 @@
-import { Section } from "@/entities/section/ui/GroupContainer";
+import { Section } from "@/entities/section/ui/Section";
 import { PostCard } from "@/features/posts/ui/PostCard";
 import { PostCardContainer } from "@/features/posts/ui/PostCardContainer";
 
