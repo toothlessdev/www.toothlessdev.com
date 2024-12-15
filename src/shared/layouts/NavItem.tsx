@@ -26,11 +26,3 @@ export const NavItem = ({ href, children }: NavItemProps) => {
         </li>
     );
 };
-
-/**
- * ({ isActive }) => {
-                    return `flex h-full items-center border-b-[2px] border-[#0e1117] text-sm text-white ${
-                        isActive ? "border-b-[2px] border-[#f78166]" : ""
-                    }`;
-                }
- */

@@ -1,9 +1,9 @@
-interface SocialButtonProps {
-    icon: React.ReactNode;
+interface ExternalLinkProps {
     href: string;
+    children: React.ReactNode;
 }
 
-export const SocialButton = ({ icon, href }: Readonly<SocialButtonProps>) => {
+export const ExternalLink = ({ href, children }: ExternalLinkProps) => {
     return (
         <a
             target="_blank"
@@ -11,7 +11,7 @@ export const SocialButton = ({ icon, href }: Readonly<SocialButtonProps>) => {
             href={href}
             className="flex h-[30px] w-[30px] items-center justify-center rounded-[8px] border-[1px] border-[#9098a1]"
         >
-            {icon}
+            {children}
         </a>
     );
 };

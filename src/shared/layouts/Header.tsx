@@ -1,5 +1,5 @@
-import { NavGlobal } from "@/app/layouts/NavGlobal";
-import { NavTop } from "@/app/layouts/NavTop";
+import { NavGlobal } from "@/shared/layouts/NavGlobal";
+import { NavTop } from "@/shared/layouts/NavTop";
 
 export const Header = () => {
     return (

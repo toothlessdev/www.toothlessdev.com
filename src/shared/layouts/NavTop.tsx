@@ -1,4 +1,4 @@
-import { NavItem } from "@/app/layouts/NavItem";
+import { NavItem } from "@/shared/layouts/NavItem";
 import { siteConfiguration } from "@/config/site";
 
 export const NavTop = () => {
