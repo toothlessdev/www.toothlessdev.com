@@ -1,4 +1,8 @@
-export const category = [
+export const category: CategoryType[] = [
+    {
+        label: "All",
+        color: "#fff",
+    },
     {
         label: "React",
         color: "#67dafb",
@@ -13,6 +17,9 @@ export const category = [
     },
 ];
 
-export type CategoryType = (typeof category)[number];
-export type CategoryLabel = CategoryType["label"];
-export type CategoryColor = CategoryType["color"];
+export type CategoryLabel = string;
+export type CategoryColor = string;
+export type CategoryType = {
+    label: CategoryLabel;
+    color: CategoryColor;
+};
