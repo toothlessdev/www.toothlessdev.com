@@ -1,7 +1,6 @@
 import Link from "next/link";
-import dayjs from "dayjs";
 import { LucideCalendarDays, NotebookPen } from "lucide-react";
-import { Category, CategoryColor, CategoryLabel } from "@/entities/category";
+import { Category } from "@/entities/category";
 import { findColorByLabel } from "@/entities/category/utils/findColorByLabel";
 import { toPlainText } from "@/entities/mdx/utils/toPlainText";
 import { Post } from "@/features/posts/model";
