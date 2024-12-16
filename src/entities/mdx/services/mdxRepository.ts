@@ -17,7 +17,7 @@ export class MdxRepository {
         return this;
     }
 
-    public filter(key: string, value: string): this {
+    public filter(key: string, value: unknown): this {
         this.mdxBuilder.filterMdxFiles(key, value);
         return this;
     }

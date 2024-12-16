@@ -18,7 +18,7 @@ export class MdxBuilder {
         this.mdxFiles = mdxFiles.filter((file) => file.endsWith(".mdx"));
     }
 
-    public filterMdxFiles(frontMatterKey: string, frontMatterValue: string) {
+    public filterMdxFiles(frontMatterKey: string, frontMatterValue: unknown) {
         this.mdxFiles = this.mdxFiles.filter((file) => {
             const frontMatter = readMdxFrontMatter(path.join(this.directoryPath, file));
             return frontMatter[frontMatterKey] === frontMatterValue;

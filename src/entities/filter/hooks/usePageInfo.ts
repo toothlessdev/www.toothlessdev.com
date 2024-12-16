@@ -3,12 +3,8 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import { PageInfoProps } from "@/entities/pagination/ui/PageInfo";
-import {
-    getCurrentPageGroup,
-    PAGE_KEY,
-    updatePageParam,
-} from "@/entities/pagination/utils/pageParam";
+import { PageInfoProps } from "@/entities/filter/ui/PageInfo";
+import { getCurrentPageGroup, PAGE_KEY, updatePageParam } from "@/entities/filter/utils/pageParam";
 
 export const usePageInfo = ({ totalPage, pageGroupSize }: PageInfoProps) => {
     const router = useRouter();
