@@ -1,0 +1,42 @@
+name: Deploy on Production
+
+on:
+    pull_request:
+        branches: [main]
+        types: [closed]
+
+jobs:
+    build:
+        name: Build Docker Image
+        runs-on: self-hosted
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Install Yarn Package Manager
+              run: npm install -g yarn
+
+            - name: Install Dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Build Docker Image
+              run: docker build -f Dockerfile -t www.toothlessdev.com .
+
+    deploy:
+        name: Deploy on Production
+        runs-on: self-hosted
+        needs: build
+
+        steps:
+            - name: Halt Container
+              run: docker stop www.toothlessdev.com
+
+            - name: Run Container
+              run: docker run -d -p 3000:3000 --name www.toothlessdev.com www.toothlessdev.com
+
+            - name: Docker Prune
+              run: docker system prune -f
+
+            - name: Restart Caddy Service
+              run: sudo systemctl restart caddy

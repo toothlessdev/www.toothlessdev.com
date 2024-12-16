@@ -1,0 +1,41 @@
+name: "Run Tests"
+
+on:
+    pull_request:
+        branches: ["main"]
+
+jobs:
+    lint:
+        name: Lint
+        runs-on: self-hosted
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Install Yarn Package Manager
+              run: npm install -g yarn
+
+            - name: Install Dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Lint
+              run: yarn lint
+
+    test:
+        name: Run Tests
+        runs-on: self-hosted
+        needs: lint
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Install Yarn Package Manager
+              run: npm install -g yarn
+
+            - name: Install Dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Test
+              run: yarn test
