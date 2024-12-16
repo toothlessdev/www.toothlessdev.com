@@ -9,6 +9,10 @@ export const siteConfiguration = {
             path: "/about",
         },
         {
+            label: "Footprints",
+            path: "/footprints",
+        },
+        {
             label: "Posts",
             path: "/posts",
         },
