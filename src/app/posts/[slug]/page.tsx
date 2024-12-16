@@ -11,7 +11,7 @@ export default function PostDetailPage({ params }: Readonly<PostDetailPageProps>
     const postsService = new PostsService(
         new MdxRepository(path.join(process.cwd(), "contents", "posts")),
     );
-
     const content = postsService.readPostBySlug(params.slug);
+
     return <MdxTemplate content={content} />;
 }

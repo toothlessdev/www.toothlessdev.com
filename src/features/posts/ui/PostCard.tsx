@@ -1,21 +1,16 @@
 import Link from "next/link";
+import dayjs from "dayjs";
 import { LucideCalendarDays, NotebookPen } from "lucide-react";
 import { Category, CategoryColor, CategoryLabel } from "@/entities/category";
+import { findColorByLabel } from "@/entities/category/utils/findColorByLabel";
+import { toPlainText } from "@/entities/mdx/utils/toPlainText";
+import { Post } from "@/features/posts/model";
+import { parseDate } from "@/shared/lib/dayjs";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
 
-interface PostCardProps {
-    id: number;
-    title: string;
-    content: string;
-    date: string;
-
-    categoryLabel: CategoryLabel;
-    categoryColor: CategoryColor;
-}
-
-export const PostCard = ({ id, title, content, date, categoryLabel, categoryColor }: PostCardProps) => {
+export const PostCard = ({ slug, title, content, createdAt, category }: Post) => {
     return (
-        <Link href={`/posts/${id}`} className="hover:cursor-pointer">
+        <Link href={`/posts/${slug}`} className="hover:cursor-pointer">
             <Card className="border-base rounded-[8px] bg-[#0e1117] px-6 text-white hover:cursor-pointer">
                 <CardHeader className="flex flex-row items-center px-0 py-2">
                     <div className="mt-[6px] flex h-fit justify-end">
@@ -25,14 +20,14 @@ export const PostCard = ({ id, title, content, date, categoryLabel, categoryColo
                 </CardHeader>
 
                 <CardContent className="p-0">
-                    <p className="line-clamp-2 text-sm text-[#9198a1]">{content}</p>
+                    <p className="line-clamp-2 text-sm text-[#9198a1]">{toPlainText(content)}</p>
                 </CardContent>
 
                 <CardFooter className="mb-[6px] flex justify-between px-0 py-2 text-[#9198a1]">
-                    <Category label={categoryLabel} color={categoryColor} />
+                    <Category label={category} color={findColorByLabel(category) as string} />
                     <span className="ml-2 flex items-center gap-1 text-sm">
                         <LucideCalendarDays size={16} />
-                        {date}
+                        {parseDate(createdAt)}
                     </span>
                 </CardFooter>
             </Card>

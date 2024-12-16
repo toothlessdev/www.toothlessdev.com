@@ -1,16 +1,33 @@
-import path from "path";
-import { MdxRepository } from "@/entities/mdx/services/mdxRepository";
-import { readMdxContent } from "@/entities/mdx/utils/readMdx";
-import { PostsService } from "@/features/posts/services/postsService";
+import { CategoryMenu } from "@/entities/category/ui/CategoryMenu";
+import { PageInfo } from "@/entities/filter/ui/PageInfo";
+import { Section } from "@/entities/section/ui/Section";
+import { usePostPreviews } from "@/features/posts/hooks/usePostPreviews";
+import { PostListItem } from "@/features/posts/ui/PostListItem";
 
 export default function PostsPage() {
-    const postsService = new PostsService(
-        new MdxRepository(path.join(process.cwd(), "contents", "posts")),
+    const { posts } = usePostPreviews();
+
+    return (
+        <div className="flex">
+            <CategoryMenu />
+            <Section
+                title={<h1 className="font-semibold">JavaScript Posts</h1>}
+                className="flex-1 p-2"
+            >
+                {posts.map((post, index) => {
+                    return (
+                        <PostListItem
+                            key={index}
+                            title={post.title}
+                            slug={post.slug}
+                            content={post.content}
+                            category={post.category}
+                            createdAt={post.createdAt}
+                        />
+                    );
+                })}
+                <PageInfo totalPage={27} pageGroupSize={5} />
+            </Section>
+        </div>
     );
-
-    const post = postsService.readPostsPreview(1, 10, "test", "createdAt", "asc");
-
-    const content = readMdxContent(post[0]);
-
-    return <div>{content}</div>;
 }
