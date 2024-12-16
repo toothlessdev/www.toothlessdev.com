@@ -1,4 +1,4 @@
-import { getCurrentPageGroup, updatePageParam } from "@/entities/pagination/utils/pageParam";
+import { getCurrentPageGroup, updatePageParam } from "@/entities/filter/utils/pageParam";
 
 describe("updatePageParam", () => {
     test("should return appropriate search param", () => {
