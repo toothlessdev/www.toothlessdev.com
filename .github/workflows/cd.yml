@@ -38,6 +38,3 @@ jobs:
 
             - name: Docker Prune
               run: docker system prune -f
-
-            - name: Restart Caddy Service
-              run: sudo systemctl restart caddy
