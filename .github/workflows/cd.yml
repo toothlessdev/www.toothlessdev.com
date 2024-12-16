@@ -7,29 +7,14 @@ on:
     workflow_dispatch:
 
 jobs:
-    build:
-        name: Build Docker Image
-        runs-on: self-hosted
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-
-            - name: Install Yarn Package Manager
-              run: npm install -g yarn
-
-            - name: Install Dependencies
-              run: yarn install --frozen-lockfile
-
-            - name: Build Docker Image
-              run: docker build -f Dockerfile -t www.toothlessdev.com .
-
     deploy:
         name: Deploy on Production
         runs-on: self-hosted
-        needs: build
 
         steps:
+            - name: Build Docker Image
+              run: docker build -t www.toothlessdev.com .
+
             - name: Halt Container
               run: docker stop www.toothlessdev.com
 
