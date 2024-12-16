@@ -13,13 +13,13 @@ jobs:
 
         steps:
             - name: Build Docker Image
-              run: docker build -t www.toothlessdev.com .
+              run: sudo docker build -t www.toothlessdev.com .
 
             - name: Halt Container
-              run: docker stop www.toothlessdev.com
+              run: sudo docker stop www.toothlessdev.com
 
             - name: Run Container
-              run: docker run -d -p 3000:3000 --name www.toothlessdev.com www.toothlessdev.com
+              run: sudo docker run -d -p 63000:3000 --name www.toothlessdev.com www.toothlessdev.com
 
             - name: Docker Prune
-              run: docker system prune -f
+              run: sudo docker system prune -f
