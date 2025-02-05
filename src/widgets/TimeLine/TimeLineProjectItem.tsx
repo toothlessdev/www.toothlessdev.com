@@ -1,6 +1,6 @@
 import { Code, Ellipsis, Github, Link } from "lucide-react";
-import { TimeLineItem } from "@/features/footprints/ui/TimeLineItem";
 import { ExternalLinkButton } from "@/shared/components/ExternalLink";
+import { TimeLineItem } from "@/widgets/TimeLine/TimeLineItem";
 
 export interface TimeLineProjectItemProps {
     title: string;

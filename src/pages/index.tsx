@@ -1,10 +1,10 @@
 import { InferGetStaticPropsType } from "next";
 import { container } from "tsyringe";
 import { MdxService } from "@/entities/mdx/services/MdxService";
-import { Section } from "@/entities/section/ui/Section";
 import { Post } from "@/features/posts/model";
 import { PostCard } from "@/features/posts/ui/PostCard";
 import { PostCardContainer } from "@/features/posts/ui/PostCardContainer";
+import { Section } from "@/widgets/Section/Section";
 
 export default function HomePage({
     postsMetaData,
