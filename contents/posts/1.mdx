@@ -1,0 +1,54 @@
+---
+title: SRP, 단일 책임 원칙
+createdAt: 2025-1-2
+category: All
+pinned: true
+slug: react-single-responsibility-principle
+description: 단일 책임 원칙(SRP)에 대해 알아보고, SRP에 위반되는 안티패턴 예제를 살펴봅니다
+---
+
+# 📖 SRP, 단일 책임 원칙
+
+> 단일 `모듈`은 변경의 이유가 반드시 하나 뿐이어야 한다 <br/>
+> 단일 `모듈`은 하나의 `액터`에 의해서만 `책임`져야 한다 <br/>
+
+# 📖 SRP에 위반되는 안티패턴 예제
+
+## 예제 1️⃣
+
+```js
+export const SignInForm = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        if (name === "email") setEmail(value);
+        else if (name === "password") setPassword(value);
+    };
+    // return ...
+};
+```
+
+### ❓ 이 코드의 액터는?
+
+컴포넌트 내부에서 다루고 있는 데이터에는 `email`, `password` 가 있습니다. <br/>
+액터는 `email`, `password` 데이터를 변경하는 주체인 `handleChange` 함수입니다.
+
+### ❓ 이 코드는 어느 부분이 SRP에 위반되는가?
+
+데이터를 변경하는 주체인 `handleChange` 함수가 `email`, `password` 두 가지 데이터를 모두 다루고 있습니다.
+이는, `email`과 `password` 두 가지 데이터를 다루는 책임을 가지고 있기 때문에 SRP에 위반됩니다.
+
+## 예제 2️⃣
+
+# 📖 과유불급 (過猶不及) : SRP 원칙을 지키는 것이 항상 옳지는 않다
+
+SRP 원칙을 지키는 것이 항상 옳은 것은 아니라고 생각합니다. <br/>
+과도한 분리로 인한 파편화가 발생할 수 있고, 이로인해 코드의 추적이 어려워질 수 있기 때문입니다. <br/>
+따라서, 실용성을 고려해 분리해야하며, 프로젝트의 규모와 요구사항에 따라 SRP 의 적용범위를 유연하게 조절해야 합니다.
+
+# 📚 참고자료
+
+- 클린 아키텍쳐 (로버트 C. 마틴) - Ch3.7 SRP 단일 책임 원칙

@@ -1,0 +1,23 @@
+{
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": false,
+    "singleQuote": false,
+    "quoteProps": "as-needed",
+    "printWidth": 100,
+    "tabWidth": 4,
+    "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+    "importOrder": [
+        "^next",
+        "<THIRD_PARTY_MODULES>",
+
+        "^(@/app)(.*)$",
+        "^(@/entities)(.*)$",
+        "^(@/features)(.*)$",
+        "^(@/shared)(.*)$",
+        "^(@/widgets)(.*)$",
+
+        "^(.*)/(.*)$"
+    ]
+}
