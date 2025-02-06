@@ -18,7 +18,7 @@ export const PostCard = ({ slug, title, description, createdAt, category }: Post
                 </CardHeader>
 
                 <CardContent className="p-0">
-                    <p className="line-clamp-2 text-sm text-[#9198a1]">{description}</p>
+                    <p className="line-clamp-2 h-10 text-sm text-[#9198a1]">{description}</p>
                 </CardContent>
 
                 <CardFooter className="mb-[6px] flex justify-between px-0 py-2 text-[#9198a1]">
