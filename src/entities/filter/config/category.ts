@@ -1,4 +1,4 @@
-export const category: CategoryType[] = [
+export const postCategory: PostCategoryType[] = [
     {
         label: "All",
         color: "#fff",
@@ -17,9 +17,10 @@ export const category: CategoryType[] = [
     },
 ];
 
-export type CategoryLabel = string;
-export type CategoryColor = string;
-export type CategoryType = {
-    label: CategoryLabel;
-    color: CategoryColor;
+export type PostCategoryLabel = string;
+export type PostCategoryColor = string;
+
+export type PostCategoryType = {
+    label: PostCategoryLabel;
+    color: PostCategoryColor;
 };

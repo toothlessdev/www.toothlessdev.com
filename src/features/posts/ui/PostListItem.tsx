@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { findColorByLabel } from "@/entities/category/utils/findColorByLabel";
+import { findColorByLabel } from "@/entities/filter/utils/findColorByLabel";
 import { PostMetaData } from "@/features/posts/model";
 import { parseDate } from "@/shared/lib/dayjs";
 

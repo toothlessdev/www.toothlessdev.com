@@ -1,23 +1,19 @@
-import { InferGetStaticPropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { container } from "tsyringe";
-import { CategoryMenu } from "@/entities/category/ui/CategoryMenu";
+import { CategoryMenu } from "@/entities/filter/ui/CategoryMenu";
 import { PageInfo } from "@/entities/filter/ui/PageInfo";
-import { MdxService } from "@/entities/mdx/services/MdxService";
-import { Post } from "@/features/posts/model";
+import { PostService } from "@/features/posts/service/PostService";
 import { PostListItem } from "@/features/posts/ui/PostListItem";
 import { Section } from "@/widgets/Section/Section";
 
 export default function PostsPage({
-    postsMetaData,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+    postsFrontmatter,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <div className="flex">
             <CategoryMenu />
-            <Section
-                title={<h1 className="font-semibold">JavaScript Posts</h1>}
-                className="flex-1 p-2"
-            >
-                {postsMetaData.map((post, index) => {
+            <Section title="Posts" className="flex-1 p-2">
+                {postsFrontmatter.map((post, index) => {
                     return (
                         <PostListItem
                             key={index}
@@ -35,12 +31,34 @@ export default function PostsPage({
     );
 }
 
-export const getStaticProps = async () => {
-    const mdxService = container.resolve(MdxService);
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+    const { query } = context;
 
-    const postsMetaData = mdxService
-        .readMdxFiles<Post[]>(1, 10, "createdAt", "asc", "category", "All")
-        .map((post: Post) => post.frontMatter);
+    const category = (query.category as string) || "All";
+    const page = Number(query.page as string) || 1;
 
-    return { props: { postsMetaData } };
+    const postService = container.resolve(PostService);
+    const postsFrontmatter = postService.findPostsFrontmatterByCategoryAndPage(category, page, 20);
+
+    // console.log(postsFrontmatter);
+
+    return { props: { postsFrontmatter } };
 };
+
+// export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+//     const { params } = context;
+
+//     console.log(params);
+
+//     return { props: {} };
+
+//     // const postService = container.resolve(PostService);
+
+//     // const postService = container.resolve(PostService);
+//     // postService.createPost({
+//     // const mdxService = container.resolve(MdxService);
+//     // const postsMetaData = mdxService
+//     //     .readMdxFiles<Post[]>(1, 10, "createdAt", "asc", "category", "All")
+//     //     .map((post: Post) => post.frontMatter);
+//     // return { props: { postsMetaData } };
+// };

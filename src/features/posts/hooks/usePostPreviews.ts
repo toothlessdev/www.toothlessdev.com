@@ -1,5 +1,5 @@
 import { container } from "tsyringe";
-import { MdxService } from "@/entities/mdx/services/MdxService";
+import { MdxService } from "@/entities/mdx/service/MdxService";
 
 export const usePostPreviews = () => {
     const mdxService = container.resolve(MdxService);

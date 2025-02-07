@@ -4,15 +4,14 @@ import { serialize } from "next-mdx-remote/serialize";
 import { Fragment } from "react";
 import { container } from "tsyringe";
 import { mdxComponents } from "@/entities/mdx/config/MdxComponents";
-import { MdxService } from "@/entities/mdx/services/MdxService";
-import { Post } from "@/features/posts/model";
+import { PostService } from "@/features/posts/service/PostService";
 import "highlight.js/styles/atom-one-dark.css";
 
 export default function PostDetailPage({
-    postMetaData,
+    frontMatter,
     serializedPostContent,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-    console.log(postMetaData);
+    console.log(frontMatter);
 
     return (
         <Fragment>
@@ -28,13 +27,13 @@ export default function PostDetailPage({
 }
 
 export const getStaticPaths = () => {
-    const mdxService = container.resolve(MdxService);
+    const postService = container.resolve(PostService);
 
-    const slugs = mdxService
-        .readMdxFiles<Post[]>(1, 10, "createdAt", "asc", "category", "All")
-        .map((post: Post) => post.frontMatter.slug);
+    const postsFrontmatter = postService.findAllPostsFrontMatter();
 
-    const paths = slugs.map((slug) => ({ params: { id: slug } }));
+    const paths = postsFrontmatter.map((post) => {
+        return { params: { id: post.slug } };
+    });
 
     return { paths, fallback: false };
 };
@@ -42,14 +41,10 @@ export const getStaticPaths = () => {
 export const getStaticProps = async (context: GetStaticPropsContext) => {
     const { params } = context;
 
-    const mdxService = container.resolve(MdxService);
+    const postService = container.resolve(PostService);
+    const { frontMatter, content } = postService.findPostBySlug(params?.id as string);
 
-    const post = mdxService
-        .readMdxFiles<Post[]>(1, 10, "createdAt", "asc", "category", "All")
-        .find((post: Post) => post.frontMatter.slug === params?.id);
+    const serializedPostContent = await serialize(content);
 
-    const postMetaData = post?.frontMatter;
-    const serializedPostContent = await serialize(post?.content as string);
-
-    return { props: { postMetaData, serializedPostContent } };
+    return { props: { frontMatter, serializedPostContent } };
 };

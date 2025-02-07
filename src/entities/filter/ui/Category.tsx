@@ -1,8 +1,8 @@
 import React from "react";
-import { CategoryType } from "@/entities/category";
+import { PostCategoryType } from "@/entities/filter/config/category";
 import { cn } from "@/shared/lib/utils";
 
-interface CategoryProps extends CategoryType {
+interface CategoryProps extends PostCategoryType {
     className?: string;
     onClick?: React.EventHandler<React.MouseEvent<HTMLDivElement>>;
 }
