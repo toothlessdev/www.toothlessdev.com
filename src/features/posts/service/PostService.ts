@@ -1,8 +1,8 @@
 import { PostNotFoundException } from "@/features/posts/error/PostException";
 import { PostRepository } from "@/features/posts/repository/PostRepository";
-import { injectable } from "tsyringe";
+import { singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class PostService {
     constructor(
         private readonly postRepository: PostRepository,

@@ -2,9 +2,9 @@ import path from "path";
 import { MdxQueryTemplate } from "@/entities/mdx/repository/MdxQueryTemplate";
 import { MdxRepository } from "@/entities/mdx/repository/MdxRepository";
 import {  PostModel } from "@/features/posts/model";
-import { injectable } from "tsyringe";
+import { singleton } from "tsyringe";
 
-@injectable()
+@singleton()
 export class PostRepository extends MdxRepository<PostModel> {
     private static readonly POSTS_PATH = path.resolve("contents/posts");
 
