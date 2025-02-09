@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { Fragment } from "react";
 import { bootstrap } from "@/apps/bootstrap";
+import "@/apps/styles/atom-one-dark.css";
 import "@/apps/styles/globals.css";
 import "@/apps/styles/theme.css";
 import { Header } from "@/shared/layouts/Header";
