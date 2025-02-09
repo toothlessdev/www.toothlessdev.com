@@ -11,3 +11,5 @@ export interface PostModel extends BaseMdxModel {
     };
     content: string;
 }
+
+export type PostFrontMatter = PostModel["frontMatter"];

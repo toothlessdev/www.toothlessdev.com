@@ -1,9 +1,15 @@
 import Link from "next/link";
 import { findColorByLabel } from "@/entities/filter/utils/findColorByLabel";
-import { PostMetaData } from "@/features/posts/model";
+import { PostFrontMatter } from "@/features/posts/model";
 import { parseDate } from "@/shared/lib/dayjs";
 
-export const PostListItem = ({ slug, title, description, category, createdAt }: PostMetaData) => {
+export const PostListItem = ({
+    slug,
+    title,
+    description,
+    category,
+    createdAt,
+}: PostFrontMatter) => {
     return (
         <Link href={`/posts/${slug}`}>
             <div className="border-b-[1px] border-[#3d444d] py-4">
