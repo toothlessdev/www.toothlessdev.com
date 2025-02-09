@@ -1,0 +1,25 @@
+name: Deploy on Production
+
+on:
+    pull_request:
+        branches: [main]
+        types: [closed]
+    workflow_dispatch:
+
+jobs:
+    deploy:
+        name: Deploy
+        runs-on: self-hosted
+
+        steps:
+            - name: Build Docker Image
+              run: sudo docker build -t www.toothlessdev.com .
+
+            - name: Halt Container
+              run: sudo docker stop www.toothlessdev.com || true
+
+            - name: Run Container
+              run: sudo docker run -d -p 63000:3000 --name www.toothlessdev.com www.toothlessdev.com
+
+            - name: Docker Prune
+              run: sudo docker system prune -f || true
