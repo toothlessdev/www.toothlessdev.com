@@ -6836,7 +6836,7 @@ regexp.prototype.flags@^1.5.3:
     gopd "^1.2.0"
     set-function-name "^2.0.2"
 
-rehype-highlight@^7.0.1:
+rehype-highlight@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/rehype-highlight/-/rehype-highlight-7.0.2.tgz#997e05e3a336853f6f6b2cfc450c5dad0f960b07"
   integrity sha512-k158pK7wdC2qL3M5NcZROZ2tR/l7zOzjxXd5VGdcfIyoijjQqpHd3JKtYSBDpDZ38UI2WJWuFAtkMDxmx5kstA==
