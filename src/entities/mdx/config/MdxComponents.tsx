@@ -1,46 +1,64 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export const mdxComponents = {
-    Link: Link,
-    h1: (props: Record<string, unknown>) => (
-        <h1 className="my-5 text-2xl font-bold text-[#cacaca]" {...props} />
+    h1: (props: React.ComponentProps<"h1">) => (
+        <h1 className="my-8 text-3xl font-bold text-[#cecece]" {...props} />
     ),
-    h2: (props: Record<string, unknown>) => (
-        <h2 className="my-4 text-xl font-bold text-[#cacaca]" {...props} />
+    h2: (props: React.ComponentProps<"h2">) => (
+        <h2 className="my-7 text-2xl font-bold text-[#cecece]" {...props} />
     ),
-    h3: (props: Record<string, unknown>) => (
-        <h3 className="my-4 text-lg font-bold text-[#cacaca]" {...props} />
+    h3: (props: React.ComponentProps<"h3">) => (
+        <h3 className="my-6 text-xl font-bold text-[#cecece]" {...props} />
     ),
-    h4: (props: Record<string, unknown>) => (
-        <h4 className="text-md my-1 font-bold text-[#cacaca]" {...props} />
+    h4: (props: React.ComponentProps<"h4">) => (
+        <h4 className="my-5 text-lg font-bold text-[#cecece]" {...props} />
     ),
-    h5: (props: Record<string, unknown>) => (
-        <h5 className="my-3 text-sm font-bold text-[#cacaca]" {...props} />
+    h5: (props: React.ComponentProps<"h5">) => (
+        <h5 className="text-md my-4 font-bold text-[#cecece]" {...props} />
     ),
-    h6: (props: Record<string, unknown>) => (
-        <h6 className="my-3 text-xs font-bold text-[#cacaca]" {...props} />
+    h6: (props: React.ComponentProps<"h6">) => (
+        <h6 className="my-4 text-base font-bold text-[#cecece]" {...props} />
     ),
-    p: (props: Record<string, unknown>) => <p className="my-3 text-[#cacaca]" {...props} />,
-    a: (props: Parameters<typeof Link>[0]) => <Link className="text-blue-500" {...props} />,
-    ul: (props: Record<string, unknown>) => <ul className="list-inside list-disc" {...props} />,
-    ol: (props: Record<string, unknown>) => <ol className="list-inside list-decimal" {...props} />,
-    li: (props: Record<string, unknown>) => <li className="my-2 text-[#cacaca]" {...props} />,
-    blockquote: (props: Record<string, unknown>) => (
-        <blockquote className="border-l-4 border-blue-500 pl-2" {...props} />
+    p: (props: React.ComponentProps<"p">) => <p className="my-3 text-[#cecece]" {...props} />,
+    a: ({ href, children, ...rest }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+        <Link href={href!} legacyBehavior>
+            <a className="text-blue-500" {...rest}>
+                {children}
+            </a>
+        </Link>
     ),
-    pre: (props: Record<string, unknown>) => (
-        <pre className="rounded-[8px] bg-gray-800" {...props} />
+    ul: (props: React.ComponentProps<"ul">) => <ul className="list-inside list-disc" {...props} />,
+    ol: (props: React.ComponentProps<"ol">) => (
+        <ol className="list-inside list-decimal" {...props} />
     ),
-    code: (props: Record<string, unknown>) => (
-        <code className="rounded-[6px] bg-gray-800 p-1 text-sm" {...props} />
+    li: (props: React.ComponentProps<"li">) => <li className="my-2 text-[#cecece]" {...props} />,
+    blockquote: (props: React.ComponentProps<"blockquote">) => (
+        <blockquote className="my-4 border-l-2 border-blue-400 pl-2 text-[#a5a5a5]" {...props} />
     ),
-    img: (props: Record<string, unknown>) => (
-        <img className="my-2 block p-4" {...props} alt="image" />
+    pre: (props: React.ComponentProps<"pre">) => (
+        <pre className="text-wrap rounded-[8px] bg-gray-800 p-3" {...props} />
     ),
-    table: (props: Record<string, unknown>) => <table className="table-auto" {...props} />,
-    th: (props: Record<string, unknown>) => <th className="border px-4 py-2" {...props} />,
-    td: (props: Record<string, unknown>) => <td className="border px-4 py-2" {...props} />,
-    tr: (props: Record<string, unknown>) => <tr className="border px-4 py-2" {...props} />,
+    code: (props: React.ComponentProps<"code">) => (
+        <code className="rounded-[6px] bg-gray-800 p-0.5 px-1 text-sm" {...props} />
+    ),
+    img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+        const { src, alt, width, height, className, ...rest } = props;
+        return (
+            <Image
+                src={src as string}
+                alt={alt || "image"}
+                width={width ? Number(width) : 1000}
+                height={height ? Number(height) : 1000}
+                className={`my-2 block p-4 ${className || ""}`}
+                {...rest}
+            />
+        );
+    },
+    table: (props: React.ComponentProps<"table">) => <table className="table-auto" {...props} />,
+    th: (props: React.ComponentProps<"th">) => <th className="border px-4 py-2" {...props} />,
+    td: (props: React.ComponentProps<"td">) => <td className="border px-4 py-2" {...props} />,
+    tr: (props: React.ComponentProps<"tr">) => <tr className="border px-4 py-2" {...props} />,
     wrapper: ({ children }: { children: React.ReactNode }) => {
         return <div style={{ width: "100%" }}>{children}</div>;
     },
