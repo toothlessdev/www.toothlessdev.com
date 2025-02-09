@@ -1,4 +1,5 @@
 import { InferGetStaticPropsType } from "next";
+import { Pin } from "lucide-react";
 import { container } from "tsyringe";
 import { PostService } from "@/features/posts/service/PostService";
 import { PostCard } from "@/features/posts/ui/PostCard";
@@ -8,7 +9,7 @@ import { Section } from "@/widgets/Section/Section";
 export default function HomePage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
         <div>
-            <Section title="Pinned Posts">
+            <Section titleIcon={<Pin size={14} />} title="Pinned Posts">
                 <PostCardContainer>
                     {posts.map(({ frontMatter }, index) => {
                         const { slug, title, createdAt, category, description } = frontMatter;

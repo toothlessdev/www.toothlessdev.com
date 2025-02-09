@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Fragment>
             <Header />
             <NavProgressBar />
-            <main className="bg-base w-base mx-auto p-3">
+            <main className="bg-base w-base mx-auto p-6 lg:p-4">
                 <Component {...pageProps} />
             </main>
         </Fragment>
