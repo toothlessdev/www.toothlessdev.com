@@ -44,7 +44,7 @@ export class MdxQueryBuilder<Model extends BaseMdxModel> {
 
     private applyFilter(target: Model[]) {
         for (const { key, value } of this.filters) {
-            console.log(key, value);
+            if (key === "category" && value === "All") continue;
             target = target.filter((model) => model.frontMatter[key as string] === value);
         }
         return target;
