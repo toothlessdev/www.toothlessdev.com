@@ -1,12 +1,18 @@
 import Link from "next/link";
 import { LucideCalendarDays, NotebookPen } from "lucide-react";
-import { Category } from "@/entities/category";
-import { findColorByLabel } from "@/entities/category/utils/findColorByLabel";
-import { PostMetaData } from "@/features/posts/model";
+import { Category } from "@/entities/filter/ui/Category";
+import { findColorByLabel } from "@/entities/filter/utils/findColorByLabel";
+import { PostModel } from "@/features/posts/model";
 import { parseDate } from "@/shared/lib/dayjs";
 import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
 
-export const PostCard = ({ slug, title, description, createdAt, category }: PostMetaData) => {
+export const PostCard = ({
+    slug,
+    title,
+    description,
+    createdAt,
+    category,
+}: PostModel["frontMatter"]) => {
     return (
         <Link href={`/posts/${slug}`} className="hover:cursor-pointer">
             <Card className="border-base rounded-[8px] bg-[#0e1117] px-6 text-white hover:cursor-pointer">
@@ -18,7 +24,7 @@ export const PostCard = ({ slug, title, description, createdAt, category }: Post
                 </CardHeader>
 
                 <CardContent className="p-0">
-                    <p className="line-clamp-2 text-sm text-[#9198a1]">{description}</p>
+                    <p className="line-clamp-2 h-10 text-sm text-[#9198a1]">{description}</p>
                 </CardContent>
 
                 <CardFooter className="mb-[6px] flex justify-between px-0 py-2 text-[#9198a1]">

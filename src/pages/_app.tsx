@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { Fragment } from "react";
-import "reflect-metadata";
 import { bootstrap } from "@/apps/bootstrap";
+import "@/apps/styles/atom-one-dark.css";
 import "@/apps/styles/globals.css";
 import "@/apps/styles/theme.css";
 import { Header } from "@/shared/layouts/Header";
@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Fragment>
             <Header />
             <NavProgressBar />
-            <main className="bg-base w-base mx-auto p-3">
+            <main className="bg-base w-base mx-auto p-6 lg:p-4">
                 <Component {...pageProps} />
             </main>
         </Fragment>

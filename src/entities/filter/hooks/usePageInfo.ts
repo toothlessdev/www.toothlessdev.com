@@ -1,41 +1,47 @@
-"use client";
-
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
 import { PageInfoProps } from "@/entities/filter/ui/PageInfo";
 import { getCurrentPageGroup, PAGE_KEY, updatePageParam } from "@/entities/filter/utils/pageParam";
 
 export const usePageInfo = ({ totalPage, pageGroupSize }: PageInfoProps) => {
     const router = useRouter();
-    const pathName = usePathname();
-    const searchParams = useSearchParams();
+    const pathName = router.pathname;
 
     const currentPage = useMemo(() => {
-        const page = searchParams.get(PAGE_KEY);
+        if (!router.isReady) return 1;
+
+        const page = router.query[PAGE_KEY] as string;
         return page ? parseInt(page) : 1;
-    }, [searchParams]);
+    }, [router.query, router.isReady]);
 
     const currentGroupPages: number[] = useMemo(() => {
+        if (!router.isReady) return [1];
+
         const currentPageGroup = getCurrentPageGroup(currentPage, pageGroupSize);
         const startPage = (currentPageGroup - 1) * pageGroupSize + 1;
         const endPage = Math.min(currentPageGroup * pageGroupSize, totalPage);
         return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
-    }, [currentPage, pageGroupSize, totalPage]);
+    }, [currentPage, pageGroupSize, totalPage, router.isReady]);
 
     const isFirstPageGroup = useMemo(() => {
+        if (!router.isReady) return true;
+
         const currentPageGroup = getCurrentPageGroup(currentPage, pageGroupSize);
         return currentPageGroup === 1;
-    }, [currentPage, pageGroupSize]);
+    }, [currentPage, pageGroupSize, router.isReady]);
 
     const isLastPageGroup = useMemo(() => {
+        if (!router.isReady) return true;
+
         const currentPageGroup = getCurrentPageGroup(currentPage, pageGroupSize);
         const totalPageGroup = getCurrentPageGroup(totalPage, pageGroupSize);
         return currentPageGroup === totalPageGroup;
-    }, [currentPage, pageGroupSize, totalPage]);
+    }, [currentPage, pageGroupSize, totalPage, router.isReady]);
 
     const handlePage = useCallback(
         (page: number) => {
+            if (!router.isReady) return;
+
             const updatedSearchParam = updatePageParam(page);
             router.push(pathName + updatedSearchParam);
         },
@@ -44,17 +50,20 @@ export const usePageInfo = ({ totalPage, pageGroupSize }: PageInfoProps) => {
 
     // TODO: handle 네이밍 변경 필요.
     const handleNextPage = useCallback(() => {
-        if (currentPage === totalPage) return;
+        if (!router.isReady || currentPage === totalPage) return;
+
         handlePage(currentPage + 1);
-    }, [currentPage, handlePage, totalPage]);
+    }, [currentPage, handlePage, totalPage, router.isReady]);
 
     const handlePrevPage = useCallback(() => {
-        if (currentPage === 1) return;
+        if (!router.isReady || currentPage === 1) return;
+
         handlePage(currentPage - 1);
-    }, [currentPage, handlePage]);
+    }, [currentPage, handlePage, router.isReady]);
 
     const handleNextPageGroup = useCallback(() => {
-        if (isLastPageGroup) return;
+        if (!router.isReady || isLastPageGroup) return;
+
         const currentPageGroup = getCurrentPageGroup(currentPage, pageGroupSize);
 
         const nextPage = currentPageGroup * pageGroupSize + 1;
@@ -63,7 +72,8 @@ export const usePageInfo = ({ totalPage, pageGroupSize }: PageInfoProps) => {
     }, [currentPage, isLastPageGroup, pageGroupSize, pathName, router]);
 
     const handlePrevPageGroup = useCallback(() => {
-        if (isFirstPageGroup) return;
+        if (!router.isReady || isFirstPageGroup) return;
+
         const currentPageGroup = getCurrentPageGroup(currentPage, pageGroupSize);
 
         const prevPage = (currentPageGroup - 1) * pageGroupSize;

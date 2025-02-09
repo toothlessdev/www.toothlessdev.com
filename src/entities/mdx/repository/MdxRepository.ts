@@ -1,18 +1,33 @@
 import fs from "fs";
-import matter from "gray-matter";
 import path from "path";
-import { MdxDirectoryNotFoundException, MdxFileNotFoundException } from "@/entities/mdx/error/MdxException";
+import { MdxDirectoryNotFoundException } from "@/entities/mdx/error/MdxException";
+import { BaseMdxModel } from "@/entities/mdx/model";
 import { injectable } from "tsyringe";
+import { MdxParser } from "@/entities/mdx/utils/MdxParser";
 
 @injectable()
-export class MdxRepository {
-    private mdxDirectoryPath: string;
-
-    constructor(mdxDirectoryPath: string) {
-        this.mdxDirectoryPath = mdxDirectoryPath;
+export class MdxRepository<Model extends BaseMdxModel> {
+    constructor(
+        private readonly mdxDirectoryPath: string,
+    ) {}
+    
+    protected findAllMdx(): Model[] {
+        return this.readMdxDirectory()
+            .map((path) => {
+                const mdx = fs.readFileSync(path, "utf8")
+                return MdxParser.parse<Model>(mdx);
+            });
     }
-
-    public readMdxFiles() {
+    
+    protected findAllMdxFrontMatter(): Array<Model["frontMatter"]> {
+        return this.readMdxDirectory()
+            .map((path) => {
+                const mdx = fs.readFileSync(path, "utf8")
+                return MdxParser.parseFrontMatter(mdx)
+            }) as Array<Model["frontMatter"]>;
+    }
+    
+    private readMdxDirectory(): string[] {
         if (!fs.existsSync(this.mdxDirectoryPath))
             throw new MdxDirectoryNotFoundException(this.mdxDirectoryPath);
 
@@ -20,30 +35,5 @@ export class MdxRepository {
             .readdirSync(this.mdxDirectoryPath)
             .filter((file) => file.endsWith(".mdx"))
             .map((file) => path.join(this.mdxDirectoryPath, file));
-    }
-
-    public readMdxFrontMatter(mdxPath: string) {
-        if(!fs.existsSync(mdxPath))
-            throw new MdxFileNotFoundException(mdxPath);
-
-        const mdxContents = fs.readFileSync(mdxPath, "utf8");
-        const frontMatter = matter(mdxContents).data;
-        frontMatter.createdAt = new Date(frontMatter.createdAt).toISOString();
-        return frontMatter;
-    }
-
-    public readMdxContent(mdxPath: string) {
-        if(!fs.existsSync(mdxPath))
-            throw new MdxFileNotFoundException(mdxPath);
-
-        const mdxContents = fs.readFileSync(mdxPath, "utf8");
-        return matter(mdxContents).content;
-    }
-
-    public readMdx(mdxPath: string) {
-        const mdxContents = fs.readFileSync(mdxPath, "utf8");
-        const { data, content } = matter(mdxContents);
-        data.createdAt = new Date(data.createdAt).toISOString();
-        return { frontMatter: data, content };
     }
 }

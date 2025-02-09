@@ -1,5 +1,3 @@
-"use client";
-
 import { usePageInfo } from "@/entities/filter/hooks/usePageInfo";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";

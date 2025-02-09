@@ -1,14 +1,14 @@
-import path from "path";
 import "reflect-metadata";
 import { container } from "tsyringe";
-import { MdxRepository } from "@/entities/mdx/repository/MdxRepository";
-import { MdxService } from "@/entities/mdx/services/MdxService";
-import { MdxProcessor } from "@/entities/mdx/utils/MdxProcessor";
+import { MdxQueryTemplate } from "@/entities/mdx/repository/MdxQueryTemplate";
+import { MdxQueryBuilder } from "@/entities/mdx/utils/MdxQueryBuilder";
+import { PostRepository } from "@/features/posts/repository/PostRepository";
+import { PostService } from "@/features/posts/service/PostService";
 
 export function bootstrap() {
-    container.register(MdxRepository, {
-        useValue: new MdxRepository(path.resolve("contents/posts")),
-    });
-    container.register(MdxProcessor, { useClass: MdxProcessor });
-    container.register(MdxService, { useClass: MdxService });
+    container.register(MdxQueryTemplate, { useClass: MdxQueryTemplate });
+    container.register(MdxQueryBuilder, { useClass: MdxQueryBuilder });
+
+    container.register(PostRepository, { useClass: PostRepository });
+    container.register(PostService, { useClass: PostService });
 }

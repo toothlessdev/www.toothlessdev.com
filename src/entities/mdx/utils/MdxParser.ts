@@ -1,16 +1,23 @@
 import matter from "gray-matter";
+import { BaseMdxModel, MdxFrontMatter } from "@/entities/mdx/model";
 
 export class MdxParser {
-    public static parseFrontMatter(mdxContents: string) {
-        return matter(mdxContents).data;
+    public static parse<Model extends BaseMdxModel = BaseMdxModel>(mdx: string): Model {
+        const { data: frontMatter, content } = matter(mdx);
+        const normalizedFrontMatter = MdxParser.normalizeFrontMatter(frontMatter);
+
+        return { frontMatter: normalizedFrontMatter, content } as Model;
     }
 
-    public static parseContent(mdxContents: string) {
-        return matter(mdxContents).content;
+    public static parseFrontMatter(mdx: string) {
+        const { data: frontMatter } = matter(mdx);
+        return MdxParser.normalizeFrontMatter(frontMatter);
     }
 
-    public static parseMdx(mdxContents: string) {
-        const { data, content } = matter(mdxContents);
-        return { frontMatter: data, content };
+    private static normalizeFrontMatter(frontMatter: MdxFrontMatter) {
+        return Object.entries(frontMatter).reduce((normalized, [key, value]) => {
+            normalized[key] = value instanceof Date ? value.toISOString() : value;
+            return normalized;
+        }, {} as MdxFrontMatter);
     }
 }

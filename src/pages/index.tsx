@@ -1,28 +1,29 @@
 import { InferGetStaticPropsType } from "next";
+import { Pin } from "lucide-react";
 import { container } from "tsyringe";
-import { MdxService } from "@/entities/mdx/services/MdxService";
-import { Section } from "@/entities/section/ui/Section";
-import { Post } from "@/features/posts/model";
+import { PostService } from "@/features/posts/service/PostService";
 import { PostCard } from "@/features/posts/ui/PostCard";
 import { PostCardContainer } from "@/features/posts/ui/PostCardContainer";
+import { Section } from "@/widgets/Section/Section";
 
-export default function HomePage({
-    postsMetaData,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function HomePage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
         <div>
-            <Section title="Pinned Posts">
+            <Section titleIcon={<Pin size={14} />} title="Pinned Posts">
                 <PostCardContainer>
-                    {postsMetaData.map((post, index) => (
-                        <PostCard
-                            key={index}
-                            slug={post.slug}
-                            title={post.title}
-                            createdAt={post.createdAt}
-                            category={post.category}
-                            description={post.description}
-                        />
-                    ))}
+                    {posts.map(({ frontMatter }, index) => {
+                        const { slug, title, createdAt, category, description } = frontMatter;
+                        return (
+                            <PostCard
+                                key={index}
+                                slug={slug}
+                                title={title}
+                                createdAt={createdAt}
+                                category={category}
+                                description={description}
+                            />
+                        );
+                    })}
                 </PostCardContainer>
             </Section>
         </div>
@@ -30,11 +31,9 @@ export default function HomePage({
 }
 
 export const getStaticProps = async () => {
-    const mdxService = container.resolve(MdxService);
+    const postService = container.resolve(PostService);
 
-    const postsMetaData = mdxService
-        .readMdxFiles<Post[]>(1, 10, "createdAt", "asc", "category", "All")
-        .map((post: Post) => post.frontMatter);
+    const posts = postService.findPinnedPosts();
 
-    return { props: { postsMetaData } };
+    return { props: { posts } };
 };
