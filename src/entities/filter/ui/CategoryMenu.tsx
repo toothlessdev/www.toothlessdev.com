@@ -1,5 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
+import { SlidersHorizontal } from "lucide-react";
 import { useCallback } from "react";
 import { PostCategoryLabel, postCategory } from "@/entities/filter/config/category";
 import { Category } from "@/entities/filter/ui/Category";
@@ -25,10 +26,18 @@ export const CategoryMenu = () => {
         [searchParams],
     );
 
+    const isCategoryActive = useCallback(
+        (category: string) => getCategorySearchParams() === category,
+        [getCategorySearchParams],
+    );
+
     return (
         <aside className="sticky top-0 p-2 text-white lg:w-[30%]">
-            <h2 className="flex h-[36px] items-center font-semibold">Categories</h2>
-            <nav className="flex flex-col gap-1 py-2">
+            <h2 className="flex h-[36px] items-center gap-2 font-semibold">
+                <SlidersHorizontal size={14} />
+                Categories
+            </h2>
+            <nav className="flex flex-row gap-1 py-2 lg:flex-col">
                 {postCategory.map((category, index) => {
                     return (
                         <Category
@@ -42,7 +51,7 @@ export const CategoryMenu = () => {
                             }}
                             className={cn(
                                 "rounded-sm px-2 py-1 hover:cursor-pointer hover:bg-[#161a21]",
-                                getCategorySearchParams() === category.label.toLowerCase()
+                                isCategoryActive(category.label)
                                     ? "bg-[#161a21]"
                                     : "bg-transparent",
                             )}

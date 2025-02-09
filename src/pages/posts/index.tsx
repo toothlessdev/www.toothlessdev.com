@@ -10,7 +10,7 @@ export default function PostsPage({
     postsFrontmatter,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
-        <div className="flex">
+        <div className="lg:flex">
             <CategoryMenu />
             <Section title="Posts" className="flex-1 p-2">
                 {postsFrontmatter.map((post, index) => {
@@ -40,25 +40,5 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     const postService = container.resolve(PostService);
     const postsFrontmatter = postService.findPostsFrontmatterByCategoryAndPage(category, page, 20);
 
-    // console.log(postsFrontmatter);
-
     return { props: { postsFrontmatter } };
 };
-
-// export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-//     const { params } = context;
-
-//     console.log(params);
-
-//     return { props: {} };
-
-//     // const postService = container.resolve(PostService);
-
-//     // const postService = container.resolve(PostService);
-//     // postService.createPost({
-//     // const mdxService = container.resolve(MdxService);
-//     // const postsMetaData = mdxService
-//     //     .readMdxFiles<Post[]>(1, 10, "createdAt", "asc", "category", "All")
-//     //     .map((post: Post) => post.frontMatter);
-//     // return { props: { postsMetaData } };
-// };
