@@ -14,9 +14,9 @@ export const TimeLineItem = ({ title, date, icon, content }: TimeLineItemProps) 
                 <div className="relative flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border-2 border-[#0f1117] bg-[#202830]">
                     {icon}
                 </div>
-                <div className="ml-[14px] flex h-full w-full justify-between">
+                <div className="ml-[14px] flex h-full w-full flex-col justify-between lg:flex-row">
                     <h2>{title}</h2>
-                    <p className="text-sm">{date}</p>
+                    <p className="text-sm italic text-[#cacaca]">{date}</p>
                 </div>
             </div>
 
