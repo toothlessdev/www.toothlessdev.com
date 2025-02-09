@@ -1,13 +1,17 @@
+import { SectionTitle } from "@/widgets/Section/SectionTitle";
+
 interface SectionProps {
-    title?: string;
+    titleIcon?: React.ReactNode;
+    title?: React.ReactNode;
+
     children?: React.ReactNode;
     className?: string;
 }
 
-export const Section = ({ title, className, children }: Readonly<SectionProps>) => {
+export const Section = ({ titleIcon, title, className, children }: Readonly<SectionProps>) => {
     return (
         <section className={className}>
-            <h2 className="text-md my-1 text-white">{title}</h2>
+            <SectionTitle titleIcon={titleIcon} title={title} />
             {children}
         </section>
     );
