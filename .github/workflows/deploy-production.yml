@@ -7,8 +7,8 @@ on:
     workflow_dispatch:
 
 jobs:
-    cache:
-        name: Cache Node Modules
+    deploy:
+        name: Deploy
         runs-on: self-hosted
         steps:
             - name: Checkout Code
@@ -26,20 +26,6 @@ jobs:
                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
                   restore-keys: |
                       ${{ runner.os }}-yarn-
-
-    deploy:
-        name: Deploy
-        runs-on: self-hosted
-        needs: cache
-
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 22
 
             - name: Install Yarn PackageManager
               run: npm install -g yarn
