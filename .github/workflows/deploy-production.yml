@@ -18,6 +18,9 @@ jobs:
             - name: Halt Container
               run: sudo docker stop www.toothlessdev.com || true
 
+            - name: Remove Container
+              run: sudo docker rm www.toothlessdev.com || true
+
             - name: Run Container
               run: sudo docker run -d -p 63000:3000 --name www.toothlessdev.com www.toothlessdev.com
 
