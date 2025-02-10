@@ -7,11 +7,46 @@ on:
     workflow_dispatch:
 
 jobs:
+    cache:
+        name: Cache Node Modules
+        runs-on: self-hosted
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+
+            - name: Cache node_modules
+              uses: actions/cache@v3
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+
     deploy:
         name: Deploy
         runs-on: self-hosted
+        needs: cache
 
         steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+
+            - name: Install Yarn PackageManager
+              run: npm install -g yarn
+
+            - name: Install Dependencies
+              run: yarn install --frozen-lockfile
+
             - name: Build Docker Image
               run: sudo docker build -t www.toothlessdev.com .
 
