@@ -32,6 +32,7 @@
         "reflect-metadata": "^0.2.2",
         "rehype-highlight": "^7.0.2",
         "remark": "^15.0.1",
+        "remark-gfm": "^4.0.1",
         "remark-html": "^16.0.1",
         "tailwind-merge": "^2.5.5",
         "tailwindcss-animate": "^1.0.7",
