@@ -38,7 +38,11 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     const page = Number(query.page as string) || 1;
 
     const postService = container.resolve(PostService);
-    const postsFrontmatter = postService.findPostsFrontmatterByCategoryAndPage(category, page, 20);
+    const postsFrontmatter = await postService.findPostsFrontmatterByCategoryAndPage(
+        category,
+        page,
+        20,
+    );
 
     return { props: { postsFrontmatter } };
 };

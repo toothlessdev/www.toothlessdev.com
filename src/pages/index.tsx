@@ -33,7 +33,7 @@ export default function HomePage({ posts }: InferGetStaticPropsType<typeof getSt
 export const getStaticProps = async () => {
     const postService = container.resolve(PostService);
 
-    const posts = postService.findPinnedPosts();
+    const posts = await postService.findPinnedPosts();
 
     return { props: { posts } };
 };
