@@ -1,7 +1,7 @@
 import path from "path";
 import { MdxQueryTemplate } from "@/entities/mdx/repository/MdxQueryTemplate";
 import { MdxRepository } from "@/entities/mdx/repository/MdxRepository";
-import {  PostModel } from "@/features/posts/model";
+import { PostModel } from "@/features/posts/model";
 import { singleton } from "tsyringe";
 
 @singleton()
