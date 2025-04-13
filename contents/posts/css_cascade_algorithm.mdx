@@ -86,54 +86,56 @@ CSS 에서는 `@layer` 를 사용하여 origin 을 변경할 수 있습니다. <
 
 이렇게 하면 `style.css` 파일 전체가 `layer-name` 레이어에 포함됩니다. <br/>
 
-### 3.2 `@layer` 우선순위 정의
+### 3.2 Layer 는 origin 내부의 우선순위 서브 시스템이다
+
+CSS의 origin은 다음과 같은 순서로 적용됩니다.
+
+> 1. User Agent
+> 2. User
+> 3. Author
+> 4. Inline Style
+> 5. Author !important
+> 6. User !important
+
+여기서 Cascade Layer는 Author, Author !important 범위 내에서만 적용됩니다.
 
 ```css
-@layer layer1, layer2, layer3;
-
-@layer layer1 {
-    /* layer1 의 스타일 */
+@layer base {
+    .btn {
+        color: red;
+    }
 }
-@layer layer2 {
-    /* layer2 의 스타일 */
-}
-@layer layer3 {
-    /* layer3 의 스타일 */
+@layer theme {
+    .btn {
+        color: blue;
+    }
 }
 ```
 
-위의 예시에서 `layer1` 의 스타일이 가장 먼저 선언되었으므로, `layer1` 의 스타일이 가장 높은 우선순위를 가집니다. <br/>
+여기서,
 
-````
+두 스타일 모두 Author origin에 속하므로, <br/>
+
+이 경우 우선순위는 **Cascade Layer 순서(base → theme)**를 따르게 됩니다.<br/>
+
+따라서 theme가 나중에 선언되었기 때문에 `.btn { color: blue }`가 최종 적용됩니다.<br/>
+
+즉, 같은 origin에서 동일한 specificity를 가진 스타일 간에, layer 순서가 우선순위를 결정합니다.
+
+### 3.3 Layer 의 우선순위는 선언 순서로 결정
 
 ```css
-@layer reset {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+@layer a, b, c;
+
+@layer a {
 }
-@layer base {
-    body {
-        font-family: sans-serif;
-        color: #333;
-    }
+@layer b {
 }
-@layer components {
-    .btn {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-    }
+@layer c {
 }
-@layer utilities {
-    .text-center {
-        text-align: center;
-    }
-}
-````
+```
+
+Layer `c` 가 가장 나중에 선언되었으므로 `c` 에 있는 스타일이 우선적으로 적용됩니다. <br/>
 
 ## 4. Selector 의 구체성
 
