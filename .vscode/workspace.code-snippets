@@ -1,0 +1,15 @@
+{
+    "Create Post MDX": {
+        "prefix": ["!meta"],
+        "body": [
+            "---",
+            "title: $1",
+            "createdAt: $2",
+            "category: $3",
+            "pinned: $4",
+            "slug: $5",
+            "description: $6",
+            "---",
+        ],
+    },
+}
