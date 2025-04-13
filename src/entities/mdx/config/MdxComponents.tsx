@@ -55,10 +55,28 @@ export const mdxComponents = {
             />
         );
     },
-    table: (props: React.ComponentProps<"table">) => <table className="table-auto" {...props} />,
-    th: (props: React.ComponentProps<"th">) => <th className="border px-4 py-2" {...props} />,
-    td: (props: React.ComponentProps<"td">) => <td className="border px-4 py-2" {...props} />,
-    tr: (props: React.ComponentProps<"tr">) => <tr className="border px-4 py-2" {...props} />,
+    table: (props: React.ComponentProps<"table">) => (
+        <div className="overflow-hidden rounded-md border text-sm text-[#cecece]">
+            <table className="w-full table-auto border-collapse" {...props}>
+                {props.children}
+            </table>
+        </div>
+    ),
+    th: (props: React.ComponentProps<"th">) => (
+        <th className="rounded-md border px-4 py-2" {...props}>
+            {props.children}
+        </th>
+    ),
+    td: (props: React.ComponentProps<"td">) => (
+        <td className="border px-4 py-2" {...props}>
+            {props.children}
+        </td>
+    ),
+    tr: (props: React.ComponentProps<"tr">) => (
+        <tr className="border px-4 py-2" {...props}>
+            {props.children}
+        </tr>
+    ),
     wrapper: ({ children }: { children: React.ReactNode }) => {
         return <div style={{ width: "100%" }}>{children}</div>;
     },
