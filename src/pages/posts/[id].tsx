@@ -20,10 +20,10 @@ export default function PostDetailPage({
     );
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths = async () => {
     const postService = container.resolve(PostService);
 
-    const postsFrontmatter = postService.findAllPostsFrontMatter();
+    const postsFrontmatter = await postService.findAllPostsFrontMatter();
 
     const paths = postsFrontmatter.map((post) => {
         return { params: { id: post.slug } };
@@ -36,7 +36,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     const { params } = context;
 
     const postService = container.resolve(PostService);
-    const { frontMatter, content } = postService.findPostBySlug(params?.id as string);
+    const { frontMatter, content } = await postService.findPostBySlug(params?.id as string);
 
     const serializedPostContent = await serialize(content, {
         mdxOptions: {

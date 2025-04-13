@@ -12,8 +12,8 @@ export class PostService {
         return this.postRepository.findAllPostsFrontMatter();
     }
 
-    public findPostBySlug(slug: string) {
-        const post = this.postRepository.findPostBySlug(slug).at(0);
+    public async findPostBySlug(slug: string) {
+        const post = (await this.postRepository.findPostBySlug(slug)).at(0);
         if(!post) throw new PostNotFoundException(slug);
         return post;
     }

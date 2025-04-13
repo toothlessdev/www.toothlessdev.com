@@ -14,24 +14,27 @@ export class PostRepository extends MdxRepository<PostModel> {
         super(PostRepository.POSTS_PATH);
     }
 
-    public findAllPostsFrontMatter() {
-        return super.findAllMdxFrontMatter();
+    public async findAllPostsFrontMatter() {
+        return await super.findAllMdxFrontMatter();
     }
 
-    public findPostBySlug(slug: string) {
-        return this.mdxQueryTemplate.createQueryBuilder(this.findAllMdx())
+    public async findPostBySlug(slug: string) {
+        const allMdx = await this.findAllMdx();
+        return this.mdxQueryTemplate.createQueryBuilder(allMdx)
             .filter("slug", slug)
             .build();
     }
 
-    public findPinnedPosts() {
-        return this.mdxQueryTemplate.createQueryBuilder(this.findAllMdx())
+    public async findPinnedPosts() {
+        const allMdx = await this.findAllMdx();
+        return this.mdxQueryTemplate.createQueryBuilder(allMdx)
             .filter("pinned", true)
-            .build()
+            .build();
     }
 
-    public findPostsFrontmatterByCategoryAndPage(category: string, page: number, perPage: number) {
-        return this.mdxQueryTemplate.createQueryBuilder(this.findAllMdx())
+    public async findPostsFrontmatterByCategoryAndPage(category: string, page: number, perPage: number) {
+        const allMdx = await this.findAllMdx();
+        return this.mdxQueryTemplate.createQueryBuilder(allMdx)
             .filter("category", category)
             .paginate(page, perPage)
             .build()
