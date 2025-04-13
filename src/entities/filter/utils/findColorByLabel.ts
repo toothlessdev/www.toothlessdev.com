@@ -1,5 +1,6 @@
-import { postCategory, PostCategoryLabel } from "@/entities/filter/config/category";
+import { siteConfiguration } from "@/apps/config/site";
+import { PostCategoryLabel } from "@/entities/filter/config/category";
 
 export function findColorByLabel(label: PostCategoryLabel) {
-    return postCategory.find((item) => item.label === label)?.color;
+    return siteConfiguration.category.find((item) => item.label === label)?.color;
 }
