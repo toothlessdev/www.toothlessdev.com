@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import rehypeHighlight from "rehype-highlight";
+import remarkGfm from "remark-gfm";
 import { container } from "tsyringe";
 import { mdxComponents } from "@/entities/mdx/config/MdxComponents";
 import { PostService } from "@/features/posts/service/PostService";
@@ -39,7 +40,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
     const serializedPostContent = await serialize(content, {
         mdxOptions: {
-            remarkPlugins: [],
+            remarkPlugins: [remarkGfm],
             rehypePlugins: [rehypeHighlight],
         },
     });

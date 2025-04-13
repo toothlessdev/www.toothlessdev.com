@@ -1,0 +1,127 @@
+/* MDX Editor Styles */
+.prone,
+.prone * {
+    color: #cecece;
+}
+
+.prone h1,
+.prone h2,
+.prone h3,
+.prone h4,
+.prone h5,
+.prone h6 {
+    font-weight: bold;
+}
+
+.prone h1 {
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.prone h2 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.75rem; /* 28px */
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+}
+
+.prone h3 {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.5rem; /* 24px */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.prone h4 {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.prone h5 {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.prone h6 {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.prone p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.prone a {
+    color: #3b82f6; /* Tailwind의 text-blue-500 */
+    text-decoration: underline;
+}
+
+.prone ul {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+.prone ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+}
+
+.prone li {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.prone blockquote {
+    border-left: 2px solid #3b82f6;
+    padding-left: 0.5rem;
+    color: #a5a5a5;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.prone pre {
+    white-space: pre-wrap;
+    background-color: #1f2937; /* Tailwind의 bg-gray-800 */
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+
+.prone code {
+    background-color: #1f2937; /* Tailwind의 bg-gray-800 */
+    padding: 0.125rem 0.25rem;
+    font-size: 0.875rem;
+    border-radius: 6px;
+}
+
+.prone img {
+    display: block;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.prone table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.prone th,
+.prone td {
+    border: 1px solid #cecece;
+    padding: 0.5rem 1rem;
+}
+
+.prone tr {
+    border: 1px solid #cecece;
+}

@@ -2,7 +2,8 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { SlidersHorizontal } from "lucide-react";
 import { useCallback } from "react";
-import { PostCategoryLabel, postCategory } from "@/entities/filter/config/category";
+import { siteConfiguration } from "@/apps/config/site";
+import { PostCategoryLabel } from "@/entities/filter/config/category";
 import { Category } from "@/entities/filter/ui/Category";
 import { cn } from "@/shared/lib/utils";
 
@@ -37,8 +38,8 @@ export const CategoryMenu = () => {
                 <SlidersHorizontal size={14} />
                 Categories
             </h2>
-            <nav className="flex flex-row gap-1 py-2 lg:flex-col">
-                {postCategory.map((category, index) => {
+            <nav className="flex flex-row flex-nowrap gap-1 py-2 lg:flex-col">
+                {siteConfiguration.category.map((category, index) => {
                     return (
                         <Category
                             key={index}
