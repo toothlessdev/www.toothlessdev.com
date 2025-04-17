@@ -1,4 +1,5 @@
 const nextConfig = {
+    transpilePackages: ["@mdxeditor/editor"],
     reactStrictMode: true,
     webpack: (config) => {
         config.resolve.fallback = { fs: false };
