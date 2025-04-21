@@ -2,10 +2,14 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import rehypeHighlight from "rehype-highlight";
+import rehypeKatex from "rehype-katex";
+import rehypeMathjax from "rehype-mathjax";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import { container } from "tsyringe";
 import { mdxComponents } from "@/entities/mdx/config/MdxComponents";
 import { PostService } from "@/features/posts/service/PostService";
+import "katex/dist/katex.min.css";
 
 export default function PostDetailPage({
     frontMatter,
@@ -40,8 +44,8 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
     const serializedPostContent = await serialize(content, {
         mdxOptions: {
-            remarkPlugins: [remarkGfm],
-            rehypePlugins: [rehypeHighlight],
+            remarkPlugins: [remarkGfm, remarkMath],
+            rehypePlugins: [rehypeHighlight, rehypeKatex, rehypeMathjax],
         },
     });
 

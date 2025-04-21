@@ -1,9 +1,9 @@
 name: Deploy on Production
 
 on:
-    pull_request:
-        branches: [main]
-        types: [closed]
+    # pull_request:
+    #     branches: [main]
+    #     types: [closed]
     workflow_dispatch:
 
 jobs:

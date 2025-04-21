@@ -16,3 +16,9 @@ export class MdxFileNotFoundException extends BaseMdxException {
         super(`File not found: ${mdxPath}`);
     }
 }
+
+export class MdxFileCreationException extends BaseMdxException {
+    constructor(mdxPath: string) {
+        super(`Failed to create file: ${mdxPath}`);
+    }
+}
