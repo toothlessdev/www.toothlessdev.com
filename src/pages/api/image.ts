@@ -18,7 +18,7 @@ export default function handler(request: NextApiRequest, response: NextApiRespon
     const form = formidable({
         uploadDir: IMAGE_UPLOAD_DIR,
         keepExtensions: true,
-        filename: (_name, _ext, part) => `${part.originalFilename || part.name}-${Date.now()}`,
+        filename: (_name, _ext, part) => `${Date.now()}-${part.originalFilename || part.name}`,
     });
 
     form.parse(request, (err, _fields, files) => {
@@ -31,7 +31,7 @@ export default function handler(request: NextApiRequest, response: NextApiRespon
         const fileName =
             (file as formidable.File).newFilename ||
             path.basename((file as formidable.File).filepath);
-        const fileUrl = `public/uploads/${fileName}`;
+        const fileUrl = `/uploads/${fileName}`;
 
         return response.status(200).json({
             message: "File uploaded successfully",
