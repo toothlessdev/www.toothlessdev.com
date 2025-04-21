@@ -1,9 +1,10 @@
-import fs from "fs/promises";
 import path from "path";
-import { MdxDirectoryNotFoundException } from "@/entities/mdx/error/MdxException";
+import fs from "fs/promises";
+import { MdxDirectoryNotFoundException, MdxFileCreationException } from "@/entities/mdx/error/MdxException";
 import { BaseMdxModel } from "@/entities/mdx/model";
 import { injectable } from "tsyringe";
 import { MdxParser } from "@/entities/mdx/utils/MdxParser";
+import { CreateMdxDto } from "@/entities/mdx/model/create-mdx.dto";
 
 @injectable()
 export class MdxRepository<Model extends BaseMdxModel> {
@@ -31,6 +32,12 @@ export class MdxRepository<Model extends BaseMdxModel> {
             })
         );
         return frontMatters as Array<Model["frontMatter"]>;
+    }
+
+    protected async createMdx(fileName: string, createMdxDto : CreateMdxDto) {
+        const filePath = path.join(this.mdxDirectoryPath, fileName);
+        try { await fs.writeFile(filePath, createMdxDto.content, "utf8") }
+        catch { throw new MdxFileCreationException(filePath) }
     }
     
     private async readMdxDirectory(): Promise<string[]> {
