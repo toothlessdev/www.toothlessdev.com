@@ -1,4 +1,27 @@
 export const siteConfiguration = {
+    category: [
+        {
+            label: "All",
+            color: "#fff",
+        },
+        {
+            label: "React",
+            color: "#67dafb",
+        },
+        {
+            label: "JavaScript",
+            color: "#f7e029",
+        },
+        {
+            label: "TypeScript",
+            color: "#2f73bf",
+        },
+        {
+            label: "WEB",
+            color: "#ec6227",
+        },
+    ],
+
     menu: [
         {
             label: "Home",

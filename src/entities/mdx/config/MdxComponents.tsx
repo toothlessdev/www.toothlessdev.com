@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const mdxComponents = {
     h1: (props: React.ComponentProps<"h1">) => (
-        <h1 className="my-8 text-3xl font-bold text-[#cecece]" {...props} />
+        <h1 className="my-8 mt-12 text-3xl font-bold text-[#cecece]" {...props} />
     ),
     h2: (props: React.ComponentProps<"h2">) => (
         <h2 className="my-7 text-2xl font-bold text-[#cecece]" {...props} />
@@ -55,11 +55,30 @@ export const mdxComponents = {
             />
         );
     },
-    table: (props: React.ComponentProps<"table">) => <table className="table-auto" {...props} />,
-    th: (props: React.ComponentProps<"th">) => <th className="border px-4 py-2" {...props} />,
-    td: (props: React.ComponentProps<"td">) => <td className="border px-4 py-2" {...props} />,
-    tr: (props: React.ComponentProps<"tr">) => <tr className="border px-4 py-2" {...props} />,
+    table: (props: React.ComponentProps<"table">) => (
+        <div className="overflow-hidden rounded-md border text-sm text-[#cecece]">
+            <table className="w-full table-auto border-collapse" {...props}>
+                {props.children}
+            </table>
+        </div>
+    ),
+    th: (props: React.ComponentProps<"th">) => (
+        <th className="rounded-md border px-4 py-2" {...props}>
+            {props.children}
+        </th>
+    ),
+    td: (props: React.ComponentProps<"td">) => (
+        <td className="border px-4 py-2" {...props}>
+            {props.children}
+        </td>
+    ),
+    tr: (props: React.ComponentProps<"tr">) => (
+        <tr className="border px-4 py-2" {...props}>
+            {props.children}
+        </tr>
+    ),
     wrapper: ({ children }: { children: React.ReactNode }) => {
         return <div style={{ width: "100%" }}>{children}</div>;
     },
+    Link: Link,
 };
