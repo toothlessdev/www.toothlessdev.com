@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const mdxComponents = {
     h1: (props: React.ComponentProps<"h1">) => (
-        <h1 className="my-8 text-3xl font-bold text-[#cecece]" {...props} />
+        <h1 className="my-8 mt-12 text-3xl font-bold text-[#cecece]" {...props} />
     ),
     h2: (props: React.ComponentProps<"h2">) => (
         <h2 className="my-7 text-2xl font-bold text-[#cecece]" {...props} />
@@ -80,4 +80,5 @@ export const mdxComponents = {
     wrapper: ({ children }: { children: React.ReactNode }) => {
         return <div style={{ width: "100%" }}>{children}</div>;
     },
+    Link: Link,
 };
