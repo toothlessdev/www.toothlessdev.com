@@ -38,7 +38,7 @@ export const CategoryMenu = () => {
                 <SlidersHorizontal size={14} />
                 Categories
             </h2>
-            <nav className="flex flex-row flex-nowrap gap-1 py-2 lg:flex-col">
+            <nav className="flex flex-row flex-nowrap gap-1 overflow-x-scroll py-2 lg:flex-col">
                 {siteConfiguration.category.map((category, index) => {
                     return (
                         <Category
