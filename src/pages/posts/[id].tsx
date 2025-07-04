@@ -9,6 +9,7 @@ import remarkMath from "remark-math";
 import { container } from "tsyringe";
 import { mdxComponents } from "@/entities/mdx/config/MdxComponents";
 import { PostService } from "@/features/posts/service/PostService";
+import { PostHeader } from "@/features/posts/ui/PostHeader";
 import "katex/dist/katex.min.css";
 
 export default function PostDetailPage({
@@ -18,9 +19,12 @@ export default function PostDetailPage({
     console.log(frontMatter);
 
     return (
-        <article className="prose prose-headings:mt-8 prose-headings:font-semibold prose-headings:text-black prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg dark:prose-headings:text-white">
-            <MDXRemote components={mdxComponents} {...serializedPostContent} />
-        </article>
+        <section>
+            <PostHeader {...frontMatter} />
+            <article className="prose prose-headings:mt-8 prose-headings:font-semibold prose-headings:text-black prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg dark:prose-headings:text-white">
+                <MDXRemote components={mdxComponents} {...serializedPostContent} />
+            </article>
+        </section>
     );
 }
 
